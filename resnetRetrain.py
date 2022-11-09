@@ -33,8 +33,10 @@ learning_rate = 1e-3
 transforms = transforms.Compose(
 
 [
-
-    transforms.ToTensor()
+      transforms.ToTensor(),
+transforms.CenterCrop(10),
+    transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+  
 
 ])
 
@@ -79,7 +81,7 @@ num_ftrs = net.fc.in_features
 
 net.fc = nn.Linear(num_ftrs, 128)
 
-net.fc = net.fc.cuda() if use_cuda else net.fc
+net.fc = net.fc.cuda() if torch.cuda.is_available() else net.fc
 
 
 
